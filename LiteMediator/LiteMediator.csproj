@@ -7,13 +7,14 @@
 
 		<!-- NuGet Package Info -->
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>1.0.4</Version>
+		<Version>1.0.5</Version>
 		<Authors>Faojul Ahsan</Authors>
-		<Company>YourCompanyName</Company>
+		<Company>Faojul Ahsan</Company>
 		<PackageId>LiteMediator</PackageId>
 		<Description>Lightweight Mediator pattern implementation with pipeline support. A lightweight alternative to MediatR for .NET Core projects</Description>
 		<PackageTags>mediator csharp dotnet cqrs</PackageTags>
 		<RepositoryUrl>https://github.com/faojul/LiteMediator</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/faojul/LiteMediator</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 
