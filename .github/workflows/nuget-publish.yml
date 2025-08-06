@@ -6,6 +6,8 @@ on:
       - main # Run on all pushes to main
     tags:
       - "v*.*.*" # Publish only on version tags
+    paths-ignore:
+      - '**.md'
   workflow_dispatch: # Allow manual trigger
 
 jobs:
