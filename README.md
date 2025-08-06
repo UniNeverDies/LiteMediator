@@ -2,7 +2,7 @@
 
 **LiteMediator** is a lightweight and dependency-free mediator library for .NET, inspired by MediatR but with minimal dependencies and high performance. It supports command/query dispatching, pipeline behaviors, and fluent validation—all with 97% code coverage and CI/CD support via GitHub Actions.
 
-[![.NET](https://github.com/faojul/LiteMediator/actions/workflows/dotnet.yml/badge.svg)](https://github.com/faojul/LiteMediator/actions)
+[![Build Status](https://github.com/faojul/LiteMediator/actions/workflows/nuget-publish.yml/badge.svg)](https://github.com/faojul/LiteMediator/actions/workflows/nuget-publish.yml)
 [![NuGet Version](https://img.shields.io/nuget/v/LiteMediator.svg)](https://www.nuget.org/packages/LiteMediator)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Code Coverage](https://img.shields.io/badge/coverage-97%25-brightgreen)](#)
