@@ -4,7 +4,7 @@ A super-lightweight, high-performance alternative to MediatR with ✅ 97% test c
 It supports Send, Publish, Pipeline Behaviors, and automatic registration of handlers & validators – all with minimal setup.
 
 [![Build Status](https://github.com/faojul/LiteMediator/actions/workflows/nuget-publish.yml/badge.svg)](https://github.com/faojul/LiteMediator/actions/workflows/nuget-publish.yml)
-[![NuGet Version](https://img.shields.io/nuget/v/LiteMediator.svg)](https://www.nuget.org/packages/LiteMediator)
+[![NuGet Version](https://img.shields.io/nuget/v/LiteMediator.Lite.svg?style=flat-square)](https://www.nuget.org/packages/LiteMediator.Lite/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Code Coverage](https://img.shields.io/badge/coverage-97%25-brightgreen)](#)
 
