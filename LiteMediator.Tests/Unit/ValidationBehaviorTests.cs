@@ -23,7 +23,7 @@ namespace LiteMediator.Tests.Unit
         {
             // Arrange
             var validator = new TestValidator();
-            var behavior = new ValidationBehavior<TestRequest, string>([validator]);
+            var behavior = new ValidationBehavior<TestRequest, string>(new[] { validator });
 
             var request = new TestRequest { Name = "" };
 

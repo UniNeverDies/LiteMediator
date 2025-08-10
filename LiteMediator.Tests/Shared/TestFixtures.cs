@@ -28,23 +28,38 @@ namespace LiteMediator.Tests.Shared
 
     public class TestNotification : INotification { }
 
-    public class FirstHandler(List<string> called) : INotificationHandler<TestNotification>
+    public class FirstHandler : INotificationHandler<TestNotification>
     {
+        private readonly List<string> _called;
+
+        public FirstHandler(List<string> called)
+        {
+            _called = called;
+        }
+
         public Task Handle(TestNotification notification, CancellationToken cancellationToken)
         {
-            called.Add("First");
+            _called.Add("First");
             return Task.CompletedTask;
         }
     }
 
-    public class SecondHandler(List<string> called) : INotificationHandler<TestNotification>
+    public class SecondHandler : INotificationHandler<TestNotification>
     {
+        private readonly List<string> _called;
+
+        public SecondHandler(List<string> called)
+        {
+            _called = called;
+        }
+
         public Task Handle(TestNotification notification, CancellationToken cancellationToken)
         {
-            called.Add("Second");
+            _called.Add("Second");
             return Task.CompletedTask;
         }
     }
+
 
     public class TestBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
             where TRequest : IRequest<TResponse>

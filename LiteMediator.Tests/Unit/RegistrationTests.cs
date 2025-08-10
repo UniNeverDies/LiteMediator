@@ -22,7 +22,7 @@ namespace LiteMediator.Tests.Unit
         [Fact]
         public void Should_Register_IPipelineBehavior()
         {
-            List<string> called = [];
+            List<string> called = new List<string>();
             var services = new ServiceCollection();
             services.AddSingleton(called);
             services.RegisterBehaviorsWithMediator(typeof(TestBehavior<TestRequest, string>).Assembly);

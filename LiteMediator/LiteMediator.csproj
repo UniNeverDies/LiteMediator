@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<RootNamespace>LiteMediator</RootNamespace>
 
 		<!-- NuGet Package Info -->
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>2.0.1</Version>
+		<Version>2.0.2</Version>
 		<Authors>Faojul Ahsan</Authors>
 		<Company>Faojul Ahsan</Company>
 		<PackageId>LiteMediator.Lite</PackageId>
@@ -21,7 +21,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="11.11.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.2" />
 		<None Include="..\README.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 </Project>

@@ -12,29 +12,44 @@ namespace LiteMediator.Tests.Unit
     public class PipelineBehaviorSequenceTests
     {
 
-        public class BehaviorA<TRequest, TResponse>(List<string> log) : IPipelineBehavior<TRequest, TResponse>
-            where TRequest : IRequest<TResponse>
+        public class BehaviorA<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IRequest<TResponse>
         {
+            private readonly List<string> _log;
+
+            public BehaviorA(List<string> log)
+            {
+                _log = log;
+            }
+
             public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
             {
-                log.Add("Before A");
+                _log.Add("Before A");
                 var response = await next();
-                log.Add("After A");
+                _log.Add("After A");
                 return response;
             }
         }
 
-        public class BehaviorB<TRequest, TResponse>(List<string> log) : IPipelineBehavior<TRequest, TResponse>
+        public class BehaviorB<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
             where TRequest : IRequest<TResponse>
         {
+            private readonly List<string> _log;
+
+            public BehaviorB(List<string> log)
+            {
+                _log = log;
+            }
+
             public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
             {
-                log.Add("Before B");
+                _log.Add("Before B");
                 var response = await next();
-                log.Add("After B");
+                _log.Add("After B");
                 return response;
             }
         }
+
 
         [Fact]
         public async Task Behaviors_Execute_In_Correct_Order()

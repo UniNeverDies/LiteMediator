@@ -17,19 +17,19 @@ namespace LiteMediator.Tests.Integration
         public async Task Send_Should_Call_Handler_And_ValidationBehavior()
         {
             // Arrange
-            List<string> called = [];
+            List<string> called = new List<string>();
             var services = new ServiceCollection();
             services.AddSingleton(called);
 
             var validator = new TestValidator();
-            var behavior = new ValidationBehavior<TestRequest, string>([validator]);
+            var behavior = new ValidationBehavior<TestRequest, string>(new[] { validator });
 
             services.AddScoped<IValidator<TestRequest>>(_ => new TestValidator());
             services.AddScoped<IPipelineBehavior<TestRequest, string>>(
                 sp =>
                 {
                     var validator = sp.GetRequiredService<IValidator<TestRequest>>();
-                    return new ValidationBehavior<TestRequest, string>([validator]);
+                    return new ValidationBehavior<TestRequest, string>(new[] { validator });
                 });
 
             services.AddLiteMediator(Assembly.GetExecutingAssembly());
@@ -48,19 +48,19 @@ namespace LiteMediator.Tests.Integration
         public async Task AddLiteMediator_Should_Resolve_Handler_And_Validator()
         {
             // Arrange
-            List<string> called = [];
+            List<string> called = new List<string>();
             var services = new ServiceCollection();
             services.AddSingleton(called);
 
             var validator = new TestValidator();
-            var behavior = new ValidationBehavior<TestRequest, string>([validator]);
+            var behavior = new ValidationBehavior<TestRequest, string>(new[] { validator });
 
             services.AddScoped<IValidator<TestRequest>>(_ => new TestValidator());
             services.AddScoped<IPipelineBehavior<TestRequest, string>>(
                 sp =>
                 {
                     var validator = sp.GetRequiredService<IValidator<TestRequest>>();
-                    return new ValidationBehavior<TestRequest, string>([validator]);
+                    return new ValidationBehavior<TestRequest, string>(new[] { validator });
                 });
 
             services.AddLiteMediator(Assembly.GetExecutingAssembly());
@@ -79,19 +79,19 @@ namespace LiteMediator.Tests.Integration
         public async Task AddLiteMediatorCore_Should_Work_Together()
         {
             // Arrange
-            List<string> called = [];
+            List<string> called = new List<string>();
             var services = new ServiceCollection();
             services.AddSingleton(called);
 
             var validator = new TestValidator();
-            var behavior = new ValidationBehavior<TestRequest, string>([validator]);
+            var behavior = new ValidationBehavior<TestRequest, string>(new[] { validator });
 
             services.AddScoped<IValidator<TestRequest>>(_ => new TestValidator());
             services.AddScoped<IPipelineBehavior<TestRequest, string>>(
                 sp =>
                 {
                     var validator = sp.GetRequiredService<IValidator<TestRequest>>();
-                    return new ValidationBehavior<TestRequest, string>([validator]);
+                    return new ValidationBehavior<TestRequest, string>(new[] { validator });
                 });
 
             services.AddLiteMediatorCore(Assembly.GetExecutingAssembly()); // Registers Mediator & Behaviors & Handlers
@@ -115,14 +115,14 @@ namespace LiteMediator.Tests.Integration
             services.AddSingleton(called);
 
             var validator = new TestValidator();
-            var behavior = new ValidationBehavior<TestRequest, string>([validator]);
+            var behavior = new ValidationBehavior<TestRequest, string>(new[] { validator });
 
             services.AddScoped<IValidator<TestRequest>>(_ => new TestValidator());
             services.AddScoped<IPipelineBehavior<TestRequest, string>>(
                 sp =>
                 {
                     var validator = sp.GetRequiredService<IValidator<TestRequest>>();
-                    return new ValidationBehavior<TestRequest, string>([validator]);
+                    return new ValidationBehavior<TestRequest, string>(new[] { validator });
                 });
 
             services.AddScoped<IMediator, Mediator>();
@@ -149,14 +149,14 @@ namespace LiteMediator.Tests.Integration
             services.AddLiteMediator(Assembly.GetExecutingAssembly(), typeof(ValidationBehavior<,>).Assembly);
 
             var validator = new TestValidator();
-            var behavior = new ValidationBehavior<TestRequest, string>([validator]);
+            var behavior = new ValidationBehavior<TestRequest, string>(new[] { validator });
 
             services.AddScoped<IValidator<TestRequest>>(_ => new TestValidator());
             services.AddScoped<IPipelineBehavior<TestRequest, string>>(
                 sp =>
                 {
                     var validator = sp.GetRequiredService<IValidator<TestRequest>>();
-                    return new ValidationBehavior<TestRequest, string>([validator]);
+                    return new ValidationBehavior<TestRequest, string>(new[] { validator });
                 });
 
             var provider = services.BuildServiceProvider();
