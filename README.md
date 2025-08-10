@@ -26,8 +26,8 @@ A lightweight .NET mediator library designed for clean CQRS architecture and fas
 | `IMediator.Send()`                       | ✅         | Core command/request dispatching                          |
 | `IRequest<TResponse>`                    | ✅         | Request/command abstraction                               |
 | `IRequestHandler<TRequest, TResponse>`   | ✅         | Custom request handler logic                              |
-| `IPipelineBehavior<TRequest, TResponse>` | ✅         | Middleware-style behavior support                         |
-| `ValidationBehavior` (FluentValidation)  | ✅         | Built-in validation using FluentValidation                |
+| `IPipelineBehavior<TRequest, TResponse>` | ✅         | Middleware-style behavior support ([customizing](#customizing-validation-behavior))                        |
+| `ValidationBehavior` (FluentValidation)  | ✅         | Built-in validation using FluentValidation  ([guide](#customizing-validation-behavior))              |
 | `INotification` + `Publish()`            | ✅         | Event publishing to multiple handlers                     |
 | `INotificationHandler<T>`                | ✅         | Handle published domain events                            |
 | `RegisterHandlersWithMediator()`         | ✅         | Auto-registration of all request handlers                 |
@@ -43,6 +43,8 @@ A lightweight .NET mediator library designed for clean CQRS architecture and fas
 - `Publish(notification)` ✔️
 - `IRequest<T>` ✔️
 - `IRequestHandler<T>` ✔️
+- `INotification` ✔️
+- `INotificationHandler<T>`  ✔️
 
 The only change is in `Program.cs / Startup.cs`:
 ````csharp
@@ -57,7 +59,7 @@ services.AddLiteMediator(Assembly.GetExecutingAssembly());
 ## 📦 Installation
 
 ```bash
-dotnet add package LiteMediator
+dotnet add package LiteMediator.Lite
 ````
 
 ## 🧩 How to Use
@@ -70,7 +72,7 @@ dotnet add package LiteMediator
 ```csharp
 services.AddLiteMediator(Assembly.GetExecutingAssembly());
 ````
-   Or,
+   Or, Multiple Assemblies
 ```csharp
 //You can pass multiple assemblies in one go
 services.AddLiteMediator(
@@ -140,6 +142,8 @@ services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 ## 🔍 Example
 
+   **1. Sending a Request**
+      
 ````csharp
 
 public class HelloRequest : IRequest<string>
@@ -157,6 +161,79 @@ public class HelloHandler : IRequestHandler<HelloRequest, string>
 ````csharp
 var result = await mediator.Send(new HelloRequest { Name = "World" });
 // => "Hello, World"
+````
+
+   **2. Publishing a Notification**
+````csharp
+public record UserCreated(string Name) : INotification;
+
+public class SendWelcomeEmail : INotificationHandler<UserCreated>
+{
+    public Task Handle(UserCreated notification, CancellationToken cancellationToken)
+    {
+        Console.WriteLine($"Welcome email sent to {notification.Name}");
+        return Task.CompletedTask;
+    }
+}
+````
+
+````csharp
+await mediator.Publish(new UserCreated("Alice"));
+````
+
+## 🛠 Customizing Validation Behavior
+LiteMediator includes `ValidationBehavior<TRequest, TResponse>` using FluentValidation.
+You can extend it to add logic, or implement `IPipelineBehavior` to replace it entirely.
+
+   **1. Extending `ValidationBehavior`**
+
+````csharp
+using FluentValidation;
+using LiteMediator;
+
+public class MyCustomValidationBehavior<TRequest, TResponse>
+    : ValidationBehavior<TRequest, TResponse>
+    where TRequest : IRequest<TResponse>
+{
+    public MyCustomValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
+        : base(validators) { }
+
+    public override async Task<TResponse> Handle(
+        TRequest request, 
+        RequestHandlerDelegate<TResponse> next, 
+        CancellationToken cancellationToken)
+    {
+        Console.WriteLine("Custom before validation");
+        var result = await base.Handle(request, next, cancellationToken);
+        Console.WriteLine("Custom after validation");
+        return result;
+    }
+}
+
+````
+
+   **2. Implementing `IPipelineBehavior` from Scratch**
+````csharp
+using LiteMediator;
+
+public class MyNoOpValidationBehavior<TRequest, TResponse>
+    : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IRequest<TResponse>
+{
+    public Task<TResponse> Handle(
+        TRequest request, 
+        RequestHandlerDelegate<TResponse> next, 
+        CancellationToken cancellationToken)
+    {
+        Console.WriteLine("Skipping validation");
+        return next();
+    }
+}
+
+````
+  Registration:
+````csharp
+services.AddTransient(typeof(IPipelineBehavior<,>), typeof(MyNoOpValidationBehavior<,>));
 ````
 
 ## 🧪 Testing
