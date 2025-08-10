@@ -1,15 +1,24 @@
 # LiteMediator
 
-A super-lightweight, high-performance alternative to MediatR with ✅ 97% test coverage, ✅ CI/CD via GitHub Actions, and ✅ FluentValidation integration built-in.
-It supports Send, Publish, Pipeline Behaviors, and automatic registration of handlers & validators – all with minimal setup.
+A super-lightweight, high-performance alternative to MediatR with 97% test coverage, CI/CD via GitHub Actions, and FluentValidation integration built in.
 
 [![Build Status](https://github.com/faojul/LiteMediator/actions/workflows/nuget-publish.yml/badge.svg)](https://github.com/faojul/LiteMediator/actions/workflows/nuget-publish.yml)
-[![NuGet Version](https://img.shields.io/nuget/v/LiteMediator.svg)](https://www.nuget.org/packages/LiteMediator)
+[![NuGet Version](https://img.shields.io/nuget/v/LiteMediator.Lite.svg?style=flat-square)](https://www.nuget.org/packages/LiteMediator.Lite/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Code Coverage](https://img.shields.io/badge/coverage-97%25-brightgreen)](#)
 
+A lightweight .NET mediator library designed for clean CQRS architecture and fast performance.
+
 ---
 
+## Why LiteMediator?
+- Minimal overhead—no external dependencies
+- Full Clean Architecture & CQRS support
+- Integrates FluentValidation out of the box
+- Easy setup—only one line to replace MediatR
+- Reliable CI/CD & 97% unit test coverage
+
+  
 ## ✨ Features
 
 | Feature                                  | Supported | Description                                               |
@@ -53,14 +62,15 @@ dotnet add package LiteMediator
 
 ## 🧩 How to Use
 
-🔹 1. Monolith / Layered Architecture
-In your Startup.cs or Program.cs:
+
+**1. Startup Setup**  
+   Add `services.AddLiteMediator(...)` in your Program.cs or Startup.cs.
 
 
 ```csharp
 services.AddLiteMediator(Assembly.GetExecutingAssembly());
 ````
-Or,
+   Or,
 ```csharp
 //You can pass multiple assemblies in one go
 services.AddLiteMediator(
@@ -70,18 +80,19 @@ services.AddLiteMediator(
 );
 
 ````
-
+    
 This registers:
-- All IRequestHandler(s)
-- All IPipelineBehavior(s) (including validation)
-- IMediator service
+   - All IRequestHandler(s)
+   - All IPipelineBehavior(s) (including validation)
+   - IMediator service
 
 
 ✅ Minimal setup for monolithic or layered apps.
 
 
-🔹 2. Modular Monolith / Microservices
-For separation between Shared and Modules, you can use:
+
+**2. Modular Support**  
+   Use `AddLiteMediatorCore()` and `AddLiteMediatorModule()` for clean modular monoliths.
 
 ```csharp
 // Shared module
@@ -93,8 +104,8 @@ services.AddLiteMediatorModule(typeof(Module1.AssemblyMarker).Assembly);
 // Module2
 services.AddLiteMediatorModule(typeof(Module2.AssemblyMarker).Assembly);
 ````
-
-
+    
+    
 | Method                    | Usage                                             |
 | ------------------------- | ------------------------------------------------- |
 | `AddLiteMediator()`       | For monoliths                                     |
@@ -103,11 +114,11 @@ services.AddLiteMediatorModule(typeof(Module2.AssemblyMarker).Assembly);
 
 
 
-## ✅ Built-in FluentValidation Support
-If you're using FluentValidation:
+**3. Validation**  
+   Just register your FluentValidation validators—they’ll run automatically.
 
-1. Add your validators as normal:
-
+   1. Add your validators as normal:
+    
 ````csharp
 
 public class MyCommandValidator : AbstractValidator<MyCommand>
@@ -118,9 +129,9 @@ public class MyCommandValidator : AbstractValidator<MyCommand>
     }
 }
 ````
-
-2. Register them in DI (if not auto-registered):
-
+    
+   2. Register them in DI (if not auto-registered):
+    
 ````csharp
 services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 ````
@@ -173,7 +184,5 @@ tests/
 ## 📃 License
 Licensed under the MIT License.
 
-
-## 📎 Links
-🔗 GitHub: LiteMediator
-🔗 NuGet: LiteMediator Package
+## Author
+**Faojul Ahsan** – Senior .NET Backend Engineer passionate about clean architecture, API-first development, and remote collaboration. Seeking global remote opportunities.
