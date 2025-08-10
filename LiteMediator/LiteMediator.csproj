@@ -7,7 +7,7 @@
 
 		<!-- NuGet Package Info -->
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>2.0.0</Version>
+		<Version>2.0.1</Version>
 		<Authors>Faojul Ahsan</Authors>
 		<Company>Faojul Ahsan</Company>
 		<PackageId>LiteMediator.Lite</PackageId>
@@ -16,10 +16,12 @@
 		<RepositoryUrl>https://github.com/faojul/LiteMediator</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/faojul/LiteMediator</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="11.11.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+		<None Include="..\README.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 </Project>
