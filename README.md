@@ -27,7 +27,7 @@ A lightweight .NET mediator library designed for clean CQRS architecture and fas
 | `IRequest<TResponse>`                    | ✅         | Request/command abstraction                               |
 | `IRequestHandler<TRequest, TResponse>`   | ✅         | Custom request handler logic                              |
 | `IPipelineBehavior<TRequest, TResponse>` | ✅         | Middleware-style behavior support ([customizing](#-customizing-validation-behavior))                        |
-| `ValidationBehavior` (FluentValidation)  | ✅         | Built-in validation using FluentValidation  ([guide](tab=readme-ov-file#-customizing-validation-behavior))              |
+| `ValidationBehavior` (FluentValidation)  | ✅         | Built-in validation using FluentValidation  ([guide](#-customizing-validation-behavior))              |
 | `INotification` + `Publish()`            | ✅         | Event publishing to multiple handlers                     |
 | `INotificationHandler<T>`                | ✅         | Handle published domain events                            |
 | `RegisterHandlersWithMediator()`         | ✅         | Auto-registration of all request handlers                 |
