@@ -7,7 +7,7 @@
 
 		<!-- NuGet Package Info -->
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>2.0.2</Version>
+		<Version>2.0.3</Version>
 		<Authors>Faojul Ahsan</Authors>
 		<Company>Faojul Ahsan</Company>
 		<PackageId>LiteMediator.Lite</PackageId>
