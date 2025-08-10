@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace LiteMediator
 {
-    public class ValidationException(IEnumerable<string> errors) : Exception("Validation failed.")
+    public class ValidationException : Exception
     {
-        public IReadOnlyList<string> Errors { get; } = errors?.ToList() ?? [];
+        public IReadOnlyList<string> Errors { get; }
+
+        public ValidationException(IEnumerable<string> errors)
+            : base("Validation failed.")
+        {
+            Errors = errors?.ToList() ?? new List<string>();
+        }
     }
 }
